@@ -1,7 +1,7 @@
 package net.virtalab.logger.test;
 
-import junit.framework.Assert;
 import net.virtalab.logger.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
