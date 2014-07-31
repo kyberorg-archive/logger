@@ -25,6 +25,15 @@ public class Logger {
         return new Logger(prefix);
     }
 
+    public static Level getCurrentLogLevel(){
+        return currentLogLevel;
+    }
+
+    public static int getCurrentLogLevelAsInt(){
+        return currentLogLevel.asInt();
+    }
+
+
     public void debug(String message){
         if(currentLogLevel.priority >= Level.DEBUG.priority){
             publish(Level.DEBUG,message);
