@@ -3,8 +3,10 @@ package net.virtalab.logger;
 import java.io.PrintStream;
 
 /**
- * logger
- */@SuppressWarnings("unused")
+ * Logger
+ *
+ */
+@SuppressWarnings("unused")
 public class Logger {
 
     private static Logger self = null;
@@ -85,6 +87,7 @@ public class Logger {
             case DEBUG:
                 color = Color.GREEN;
                 label = "DEBUG";
+                break;
             case INFO:
                 color = Color.WHITE;
                 label = "INFO";
