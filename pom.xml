@@ -50,8 +50,8 @@
                 <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
                 <branch>refs/heads/mvn-repo</branch>
                 <includes><include>**/*</include></includes>
-                <repositoryName>YOUR-REPOSITORY-NAME</repositoryName>      <!-- github repo name -->
-                <repositoryOwner>YOUR-GITHUB-USERNAME</repositoryOwner>    <!-- github username  -->
+                <repositoryName>logger</repositoryName>
+                <repositoryOwner>virtalab</repositoryOwner>
             </configuration>
             <executions>
                 <execution>
