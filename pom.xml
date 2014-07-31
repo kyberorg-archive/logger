@@ -8,13 +8,38 @@
   <packaging>jar</packaging>
 
   <name>logger</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/virtalab/logger</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <github.global.server>github</github.global.server>
   </properties>
 
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http//:www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/virtalab/logger</url>
+        <connection>scm:git:https://github.com/virtalab/logger</connection>
+        <developerConnection>scm:git:https://github.com/virtalab/logger</developerConnection>
+    </scm>
+    <developers>
+        <developer>
+            <id>kyberorg</id>
+            <name>Alexander Muravya</name>
+            <email>asm@virtalab.net</email>
+            <timezone>UTC+4</timezone>
+            <roles>
+                <role>author</role>
+                <role>main developer</role>
+            </roles>
+        </developer>
+    </developers>
   <distributionManagement>
     <repository>
         <id>internal.repo</id>
