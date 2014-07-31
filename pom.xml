@@ -25,8 +25,8 @@
 
     <scm>
         <url>https://github.com/virtalab/logger</url>
-        <connection>scm:git:https://github.com/virtalab/logger</connection>
-        <developerConnection>scm:git:https://github.com/virtalab/logger</developerConnection>
+        <connection>scm:git:ssh://git@github.com/virtalab/logger</connection>
+        <developerConnection>scm:git:ssh://git@github.com/virtalab/logger</developerConnection>
       <tag>HEAD</tag>
   </scm>
 
