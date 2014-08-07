@@ -31,9 +31,9 @@ public class MiscLoggerTest {
     public void loggerWithEmptyPrefix(){
         String message = "This is Message";
         Logger log = Logger.getLogger("");
+        Logger.init(LogLevel.INFO);
+
         log.info(message);
-        //clean up
-        log=null;
 
         String expectedLine = "("+Color.WHITE+"INFO"+Color.RESET+") "+message;
         String actualLine = stdOut.toString().trim();
@@ -44,10 +44,9 @@ public class MiscLoggerTest {
     public void loggerWithoutPrefix(){
         String message = "This is Message";
         Logger log = Logger.getLogger(null);
-        log.info(message);
+        Logger.init(LogLevel.INFO);
 
-        //clean up
-        log=null;
+        log.info(message);
 
         String expectedLine = "("+Color.WHITE+"INFO"+Color.RESET+") "+message;
         String actualLine = stdOut.toString().trim();
@@ -56,7 +55,7 @@ public class MiscLoggerTest {
 
     @Test
     public void getCurrentLogLevelInfo(){
-        LogLevel exceptedDefaultLevel = LogLevel.INFO;
+        LogLevel exceptedDefaultLevel = LogLevel.OFF;
         LogLevel actualDefaultLevel = Logger.getCurrentLogLevel();
 
         Assert.assertEquals(exceptedDefaultLevel,actualDefaultLevel);
