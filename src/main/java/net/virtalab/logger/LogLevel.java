@@ -10,7 +10,8 @@ public enum LogLevel {
     DEBUG(4),
     INFO(3),
     WARN(2),
-    ERROR(1);
+    ERROR(1),
+    OFF(0);
 
     int priority;
 
