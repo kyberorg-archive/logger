@@ -30,6 +30,15 @@ public class InfoLevelLoggerTest {
         System.setErr(new PrintStream(stdErr));
     }
 
+    @Test
+    public void trace(){
+        String message = "This is trace message";
+        log.trace(message);
+        String expectedLine = "";
+        String actualLine = stdOut.toString().trim();
+        Assert.assertEquals(expectedLine, actualLine);
+    }
+
     /**
      * Test of debug level
      */
