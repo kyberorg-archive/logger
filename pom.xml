@@ -4,7 +4,7 @@
 
     <groupId>net.virtalab</groupId>
     <artifactId>logger</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.3.1</version>
     <packaging>jar</packaging>
 
     <name>logger</name>
@@ -27,7 +27,7 @@
         <url>https://github.com/virtalab/logger</url>
         <connection>scm:git:ssh://git@github.com/virtalab/logger</connection>
         <developerConnection>scm:git:ssh://git@github.com/virtalab/logger</developerConnection>
-      <tag>HEAD</tag>
+      <tag>1.3.1</tag>
   </scm>
 
     <developers>
