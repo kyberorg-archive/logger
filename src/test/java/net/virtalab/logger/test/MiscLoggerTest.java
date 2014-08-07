@@ -14,14 +14,13 @@ import java.io.PrintStream;
  * Other Tests of Logger
  */
 public class MiscLoggerTest {
-    private Logger.Level level = Logger.Level.ERROR;
 
     private final ByteArrayOutputStream stdOut = new ByteArrayOutputStream();
     private final ByteArrayOutputStream stdErr = new ByteArrayOutputStream();
 
     @Before
     public void init(){
-        Logger.init(level);
+        Logger.resetLogLevel();
 
         System.setOut(new PrintStream(stdOut));
         System.setErr(new PrintStream(stdErr));

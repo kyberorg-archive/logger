@@ -14,12 +14,11 @@ public class Logger {
     /**
      * Default log level, used if logger wasn't initialized with some log level
      */
-    private static Level currentLogLevel = Level.INFO;
-
+    private static final Level defaultLogLevel = Level.INFO;
     /**
-     * Default constructor without prefix
+     * Holder for current log level
      */
-    private Logger(){}
+    private static Level currentLogLevel = Level.INFO;
 
     /**
      * Main constructor
@@ -39,6 +38,13 @@ public class Logger {
         currentLogLevel = logLevel;
     }
 
+    /**
+     * Resets current log level to default.
+     * Made primary for unit tests
+     */
+    public static void resetLogLevel(){
+        currentLogLevel = defaultLogLevel;
+    }
     /**
      * Provides Logger object with given prefix
      *

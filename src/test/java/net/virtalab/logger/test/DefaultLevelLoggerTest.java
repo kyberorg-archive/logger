@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import sun.rmi.runtime.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -22,6 +23,8 @@ public class DefaultLevelLoggerTest {
 
     @Before
     public void init(){
+        Logger.resetLogLevel();
+
         System.setOut(new PrintStream(stdOut));
         System.setErr(new PrintStream(stdErr));
     }
