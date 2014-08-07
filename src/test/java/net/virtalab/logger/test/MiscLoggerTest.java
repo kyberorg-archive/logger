@@ -52,6 +52,28 @@ public class MiscLoggerTest {
         String actualLine = stdOut.toString().trim();
         Assert.assertEquals(expectedLine, actualLine);
     }
+
+    @Test
+    public void getCurrentLogLevelInfo(){
+        Logger.Level exceptedDefaultLevel = Logger.Level.INFO;
+        Logger.Level actualDefaultLevel = Logger.getCurrentLogLevel();
+
+        Assert.assertEquals(exceptedDefaultLevel,actualDefaultLevel);
+
+        Logger.init(Logger.Level.ERROR);
+        Logger.Level exceptedNewLevel = Logger.Level.ERROR;
+        Logger.Level actualNewLevel = Logger.getCurrentLogLevel();
+
+        Assert.assertEquals(exceptedNewLevel,actualNewLevel);
+    }
+
+    @Test
+    public void getLogLevelAsInt(){
+        Logger.init(Logger.Level.WARN);
+        int exceptedIntValueOfLevel = 2;
+        int actualIntValueOfLevel = Logger.getCurrentLogLevelAsInt();
+        Assert.assertEquals(exceptedIntValueOfLevel,actualIntValueOfLevel);
+    }
     @After
     public void releaseStreams(){
         System.setOut(System.out);
