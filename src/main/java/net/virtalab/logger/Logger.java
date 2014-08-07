@@ -73,6 +73,17 @@ public class Logger {
     }
 
     /**
+     * Prints Trace Logs
+     *
+     * @param message trace message
+     */
+    public void trace(String message){
+        if(currentLogLevel.priority >= LogLevel.TRACE.priority){
+            publish(LogLevel.TRACE,message);
+        }
+    }
+
+    /**
      * Prints debug message
      *
      * @param message log message
@@ -131,6 +142,7 @@ public class Logger {
             case ERROR:
                 stream = System.err;
                 break;
+            case TRACE:
             case DEBUG:
             case INFO:
             default:
@@ -153,6 +165,10 @@ public class Logger {
         String color;
         String label;
         switch (lvl){
+            case TRACE:
+                color = Color.CYAN;
+                label = "TRACE";
+                break;
             case DEBUG:
                 color = Color.GREEN;
                 label = "DEBUG";

@@ -7,6 +7,7 @@ package net.virtalab.logger;
  * @since 1.4
  */
 public enum LogLevel {
+    TRACE(5),
     DEBUG(4),
     INFO(3),
     WARN(2),
