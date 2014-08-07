@@ -1,6 +1,7 @@
 package net.virtalab.logger.test;
 
 import net.virtalab.logger.Color;
+import net.virtalab.logger.LogLevel;
 import net.virtalab.logger.Logger;
 import org.junit.After;
 import org.junit.Assert;
@@ -55,21 +56,21 @@ public class MiscLoggerTest {
 
     @Test
     public void getCurrentLogLevelInfo(){
-        Logger.Level exceptedDefaultLevel = Logger.Level.INFO;
-        Logger.Level actualDefaultLevel = Logger.getCurrentLogLevel();
+        LogLevel exceptedDefaultLevel = LogLevel.INFO;
+        LogLevel actualDefaultLevel = Logger.getCurrentLogLevel();
 
         Assert.assertEquals(exceptedDefaultLevel,actualDefaultLevel);
 
-        Logger.init(Logger.Level.ERROR);
-        Logger.Level exceptedNewLevel = Logger.Level.ERROR;
-        Logger.Level actualNewLevel = Logger.getCurrentLogLevel();
+        Logger.init(LogLevel.ERROR);
+        LogLevel exceptedNewLevel = LogLevel.ERROR;
+        LogLevel actualNewLevel = Logger.getCurrentLogLevel();
 
         Assert.assertEquals(exceptedNewLevel,actualNewLevel);
     }
 
     @Test
     public void getLogLevelAsInt(){
-        Logger.init(Logger.Level.WARN);
+        Logger.init(LogLevel.WARN);
         int exceptedIntValueOfLevel = 2;
         int actualIntValueOfLevel = Logger.getCurrentLogLevelAsInt();
         Assert.assertEquals(exceptedIntValueOfLevel,actualIntValueOfLevel);

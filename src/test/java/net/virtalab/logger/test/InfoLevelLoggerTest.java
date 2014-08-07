@@ -1,6 +1,7 @@
 package net.virtalab.logger.test;
 
 import net.virtalab.logger.Color;
+import net.virtalab.logger.LogLevel;
 import net.virtalab.logger.Logger;
 import org.junit.After;
 import org.junit.Assert;
@@ -14,7 +15,7 @@ import java.io.PrintStream;
  * Tests
  */
 public class InfoLevelLoggerTest {
-    private Logger.Level level = Logger.Level.INFO;
+    private LogLevel level = LogLevel.INFO;
     private String prefix = "Info Logger";
     private Logger log = Logger.getLogger(prefix);
 

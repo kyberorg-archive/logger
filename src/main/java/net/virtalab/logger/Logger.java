@@ -14,11 +14,11 @@ public class Logger {
     /**
      * Default log level, used if logger wasn't initialized with some log level
      */
-    private static final Level defaultLogLevel = Level.INFO;
+    private static final LogLevel defaultLogLevel = LogLevel.INFO;
     /**
      * Holder for current log level
      */
-    private static Level currentLogLevel = Level.INFO;
+    private static LogLevel currentLogLevel = LogLevel.INFO;
 
     /**
      * Main constructor
@@ -34,7 +34,7 @@ public class Logger {
      *
      * @param logLevel desirable log level
      */
-    public static void init(Level logLevel){
+    public static void init(LogLevel logLevel){
         currentLogLevel = logLevel;
     }
 
@@ -60,7 +60,7 @@ public class Logger {
      *
      * @return current log level
      */
-    public static Level getCurrentLogLevel(){
+    public static LogLevel getCurrentLogLevel(){
         return currentLogLevel;
     }
 
@@ -78,8 +78,8 @@ public class Logger {
      * @param message log message
      */
     public void debug(String message){
-        if(currentLogLevel.priority >= Level.DEBUG.priority){
-            publish(Level.DEBUG,message);
+        if(currentLogLevel.priority >= LogLevel.DEBUG.priority){
+            publish(LogLevel.DEBUG,message);
         }
     }
 
@@ -89,8 +89,8 @@ public class Logger {
      * @param message log message
      */
     public void info(String message){
-        if(currentLogLevel.priority >= Level.INFO.priority){
-            publish(Level.INFO,message);
+        if(currentLogLevel.priority >= LogLevel.INFO.priority){
+            publish(LogLevel.INFO,message);
         }
     }
 
@@ -100,8 +100,8 @@ public class Logger {
      * @param message log message
      */
     public void warn(String message){
-        if(currentLogLevel.priority >= Level.WARN.priority){
-            publish(Level.WARN,message);
+        if(currentLogLevel.priority >= LogLevel.WARN.priority){
+            publish(LogLevel.WARN,message);
         }
 
     }
@@ -112,8 +112,8 @@ public class Logger {
      * @param message log message
      */
     public void error(String message){
-        if(currentLogLevel.priority >= Level.ERROR.priority){
-            publish(Level.ERROR,message);
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority){
+            publish(LogLevel.ERROR,message);
         }
     }
 
@@ -123,7 +123,7 @@ public class Logger {
      * @param level log level
      * @param message log message
      */
-    private void publish(Level level, String message){
+    private void publish(LogLevel level, String message){
         PrintStream stream;
 
         switch (level){
@@ -149,7 +149,7 @@ public class Logger {
      * @param message log message
      * @return ready-to-print line
      */
-    private String createMessage(Level lvl,String message){
+    private String createMessage(LogLevel lvl,String message){
         String color;
         String label;
         switch (lvl){
@@ -185,35 +185,5 @@ public class Logger {
         line.append(message);
 
         return line.toString();
-    }
-
-    /**
-     * Log level
-     */
-    public enum Level{
-        DEBUG(4),
-        INFO(3),
-        WARN(2),
-        ERROR(1);
-
-        private int priority;
-
-        /**
-         * Level constructor
-         *
-         * @param priority log level priority as int, the higher value, rarer you will see it.
-         */
-        Level(int priority){
-            this.priority = priority;
-        }
-
-        /**
-         * Provides log level priority as int
-         *
-         * @return int representation of log level
-         */
-        public int asInt(){
-            return this.priority;
-        }
     }
 }
