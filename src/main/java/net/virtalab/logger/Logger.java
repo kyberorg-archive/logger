@@ -14,7 +14,7 @@ public class Logger {
     /**
      * Default log level, used if logger wasn't initialized with some log level
      */
-    private static final LogLevel defaultLogLevel = LogLevel.INFO;
+    private static final LogLevel defaultLogLevel = LogLevel.OFF;
     /**
      * Holder for current log level
      */

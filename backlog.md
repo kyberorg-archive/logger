@@ -4,4 +4,4 @@
 * ~~Added Javadocs and Unit tests~~
 * ~~Log Level moved from Logger to public enum~~
 * ~~New Levels OFF and TRACE~~
-* Default level is OFF
+* ~~Default level is OFF~~
