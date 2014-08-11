@@ -474,7 +474,14 @@ public class Log {
         for (int i = 1; i < stElements.length; i++) {
             StackTraceElement ste = stElements[i];
             if (!ste.getClassName().equals(Log.class.getName()) && ste.getClassName().indexOf("java.lang.Thread") != 0) {
-                return ste.getClassName();
+                String fullName = ste.getClassName();
+                String[] arr = fullName.split("\\.");
+                if(arr.length>=1){
+                    return arr[arr.length-1];
+                } else {
+                    return ste.getClassName();
+                }
+
             }
         }
         return null;
