@@ -26,7 +26,7 @@ import java.util.Map;
 public class Log {
 
     //log level
-    private static final LogLevel defaultLogLevel = LogLevel.OFF;
+    public static final LogLevel defaultLogLevel = LogLevel.OFF;
     private static LogLevel currentLogLevel;
 
     //message format settings
@@ -40,28 +40,9 @@ public class Log {
     private static Map<LogLevel, PrintStream> streamMatrix;
 
     static {
-        colorMatrix = new HashMap<LogLevel, String>();
-        //defaults
-        colorMatrix.put(LogLevel.ERROR, Color.RED);
-        colorMatrix.put(LogLevel.WARN, Color.YELLOW);
-        colorMatrix.put(LogLevel.INFO, Color.GREEN);
-        colorMatrix.put(LogLevel.DEBUG, Color.BLUE);
-        colorMatrix.put(LogLevel.TRACE, Color.CYAN);
-
-        letterMatrix = new HashMap<LogLevel, String>();
-        letterMatrix.put(LogLevel.ERROR, "E");
-        letterMatrix.put(LogLevel.WARN, "W");
-        letterMatrix.put(LogLevel.INFO, "I");
-        letterMatrix.put(LogLevel.DEBUG, "D");
-        letterMatrix.put(LogLevel.TRACE, "T");
-
-        streamMatrix = new HashMap<LogLevel, PrintStream>();
-        streamMatrix.put(LogLevel.ERROR, System.err);
-        streamMatrix.put(LogLevel.WARN, System.err);
-        streamMatrix.put(LogLevel.INFO, System.out);
-        streamMatrix.put(LogLevel.DEBUG, System.out);
-        streamMatrix.put(LogLevel.TRACE, System.out);
+        populateMatrix();
     }
+
     /**
      * Makes initial configuration of logger
      *
@@ -421,6 +402,12 @@ public class Log {
         }
     }
 
+    //FOLLOWING METHODS AND CLASSES ARE PRIVATE API
+
+    /**
+     * Prepares message and prints it
+     * @param l log object
+     */
     private static void printIt(LogObject l){
         if(l==null){ return; }
         String ready2PrintMessage = makeString(l);
@@ -473,7 +460,7 @@ public class Log {
         return sb.toString();
     }
 
-    public static String getCallerClassName() {
+    private static String getCallerClassName() {
         StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
         for (int i = 1; i < stElements.length; i++) {
             StackTraceElement ste = stElements[i];
@@ -574,6 +561,43 @@ public class Log {
         return new LogObject(l);
     }
 
+    /**
+     * Populate matrices with defaults
+     */
+    private static void populateMatrix(){
+        colorMatrix = new HashMap<LogLevel, String>();
+        //defaults
+        colorMatrix.put(LogLevel.ERROR, Color.RED);
+        colorMatrix.put(LogLevel.WARN, Color.YELLOW);
+        colorMatrix.put(LogLevel.INFO, Color.GREEN);
+        colorMatrix.put(LogLevel.DEBUG, Color.BLUE);
+        colorMatrix.put(LogLevel.TRACE, Color.CYAN);
+
+        letterMatrix = new HashMap<LogLevel, String>();
+        letterMatrix.put(LogLevel.ERROR, "E");
+        letterMatrix.put(LogLevel.WARN, "W");
+        letterMatrix.put(LogLevel.INFO, "I");
+        letterMatrix.put(LogLevel.DEBUG, "D");
+        letterMatrix.put(LogLevel.TRACE, "T");
+
+        streamMatrix = new HashMap<LogLevel, PrintStream>();
+        streamMatrix.put(LogLevel.ERROR, System.err);
+        streamMatrix.put(LogLevel.WARN, System.err);
+        streamMatrix.put(LogLevel.INFO, System.out);
+        streamMatrix.put(LogLevel.DEBUG, System.out);
+        streamMatrix.put(LogLevel.TRACE, System.out);
+    }
+
+    /**
+     * Backdoor for tests. Not indented for normal programming.
+     */
+    public static void reset(){
+        currentLogLevel = defaultLogLevel;
+        isLetterEnabled = true;
+        isTimeEnabled = true;
+        isClassNameEnabled = true;
+        populateMatrix();
+    }
     /**
      * Holds values needed to build log string
      */
