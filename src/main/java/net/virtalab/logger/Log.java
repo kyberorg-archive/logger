@@ -1,6 +1,10 @@
 package net.virtalab.logger;
 
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+
 /**
  * Brand New Logger inspired by android.util.Log
  * Supports following log levels: trace, debug, info, warn, error, off and wtf
@@ -30,6 +34,17 @@ public class Log {
     private static boolean isTimeEnabled = true;
     private static boolean isClassNameEnabled = true;
 
+    //color matrix
+    private static Map<LogLevel,String> colorMatrix;
+    static {
+        colorMatrix = new HashMap<LogLevel, String>();
+        //defaults
+        colorMatrix.put(LogLevel.ERROR, Color.RED);
+        colorMatrix.put(LogLevel.WARN, Color.YELLOW);
+        colorMatrix.put(LogLevel.INFO, Color.GREEN);
+        colorMatrix.put(LogLevel.DEBUG, Color.BLUE);
+        colorMatrix.put(LogLevel.TRACE, Color.CYAN);
+    }
     /**
      * Makes initial configuration of logger
      *
@@ -69,8 +84,12 @@ public class Log {
      * @param level log level
      * @param color one of possible ANSI-Colors
      */
-    public static void changeMessageColor(LogLevel level, Color color){
-
+    public static void changeMessageColor(LogLevel level, String color){
+        if(level==null || color==null){
+            return;
+        }
+        //TODO check color
+        colorMatrix.put(level,color);
     }
 
     /**
@@ -264,9 +283,9 @@ public class Log {
 
     public static String getCallerClassName() {
         StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
-        for (int i=1; i<stElements.length; i++) {
+        for (int i = 1; i < stElements.length; i++) {
             StackTraceElement ste = stElements[i];
-            if (!ste.getClassName().equals(Log.class.getName()) && ste.getClassName().indexOf("java.lang.Thread")!=0) {
+            if (!ste.getClassName().equals(Log.class.getName()) && ste.getClassName().indexOf("java.lang.Thread") != 0) {
                 return ste.getClassName();
             }
         }
