@@ -207,7 +207,7 @@ public class Log {
         error(tag, message, t);
     }
     public static void e(String tag, Throwable t){
-        err(tag, t);
+        error(tag, t);
     }
 
     public static void e(String message){ error(message);}
