@@ -2,6 +2,8 @@ package net.virtalab.logger;
 
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,9 @@ public class Log {
     private static boolean isLetterEnabled = true;
     private static boolean isTimeEnabled = true;
     private static boolean isClassNameEnabled = true;
+
+    //constant
+    public static final String NEWLINE = System.getProperty("line.separator");
 
     //matrix 1,2,3
     private static Map<LogLevel,String> colorMatrix;
@@ -454,8 +459,12 @@ public class Log {
                 sb.append(logObject.message);
             }
         }
-        //TODO exception logging
-
+        if(logObject.th!=null){
+            sb.append(" ");
+            sb.append("Exception: ").append(logObject.th.getMessage());
+            sb.append(NEWLINE);
+            sb.append(getStackTrace(logObject.th));
+        }
         sb.append(Color.RESET);
         return sb.toString();
     }
@@ -469,6 +478,13 @@ public class Log {
             }
         }
         return null;
+    }
+
+    private static String getStackTrace(Throwable t){
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        t.printStackTrace(pw);
+        return sw.toString();
     }
 
     /**
