@@ -104,6 +104,9 @@ public class Log {
     public static void trace(String tag, String message, Throwable t){}
     public static void trace(String tag, Throwable t){}
 
+    public static void trace(String message){}
+    public static void trace(Throwable t, String message){}
+
     public static void t(String tag, String message){
         trace(tag, message);
     }
@@ -114,9 +117,15 @@ public class Log {
         trace(tag, t);
     }
 
+    public static void t(String message){ trace(message);}
+    public static void t(Throwable t, String message){ trace(t,message);}
+
     public static void debug(String tag, String message){}
     public static void debug(String tag, String message, Throwable t){}
     public static void debug(String tag, Throwable t){}
+
+    public static void debug(String message){}
+    public static void debug(Throwable t, String message){}
 
     public static void d(String tag, String message){
         debug(tag, message);
@@ -128,9 +137,15 @@ public class Log {
         debug(tag, t);
     }
 
+    public static void d(String message){ debug(message);}
+    public static void d(Throwable t, String message){ debug(t,message);}
+
     public static void info(String tag, String message){}
     public static void info(String tag, String message, Throwable t){}
     public static void info(String tag, Throwable t){}
+
+    public static void info(String message){}
+    public static void info(Throwable t, String message){}
 
     public static void i(String tag, String message){
         info(tag, message);
@@ -142,9 +157,15 @@ public class Log {
         info(tag, t);
     }
 
+    public static void i(String message){ info(message);}
+    public static void i(Throwable t, String message){ info(t, message);}
+
     public static void warn(String tag, String message){}
     public static void warn(String tag, String message, Throwable t){}
     public static void warn(String tag, Throwable t){}
+
+    public static void warn(String message){}
+    public static void warn(Throwable t, String message){}
 
     public static void w(String tag, String message){
         warn(tag, message);
@@ -156,9 +177,15 @@ public class Log {
         warn(tag, t);
     }
 
+    public static void w(String message){ warn(message);}
+    public static void w(Throwable t, String message){ warn(t, message);}
+
     public static void error(String tag, String message){}
     public static void error(String tag, String message, Throwable t){}
     public static void error(String tag, Throwable t){}
+
+    public static void error(String message){}
+    public static void error(Throwable t, String message){}
 
     public static void err(String tag, String message){
         error(tag, message);
@@ -170,6 +197,9 @@ public class Log {
         error(tag, t);
     }
 
+    public static void err(String message){ error(message);}
+    public static void err(Throwable t, String message){ error(t, message);}
+
     public static void e(String tag, String message){
         error(tag, message);
     }
@@ -177,18 +207,57 @@ public class Log {
         error(tag, message, t);
     }
     public static void e(String tag, Throwable t){
-        err(tag, t);
+        error(tag, t);
     }
+
+    public static void e(String message){ error(message);}
+    public static void e(Throwable t, String message){ error(t, message);}
 
     public static void wtf(String tag, String message){}
     public static void wtf(String tag, String message, Throwable t){}
     public static void wtf(String tag, Throwable t){}
 
+    public static void wtf(String message){}
+    public static void wtf(Throwable t, String message){}
+
     private static void publish(){
 
     }
 
-    private static String makeString(){
-        return "";
+    private static String makeString(Color color, String letter, String tag, String message){
+        StringBuilder sb = new StringBuilder();
+        sb.append(color);
+        if(isLetterEnabled){
+            sb.append(letter).append(" ");
+        }
+        if(isTimeEnabled){
+            String ts = "";
+            sb.append(ts).append(" ");
+        }
+        if(isClassNameEnabled){
+            String clsName = getCallerClassName();
+            if(clsName!=null){
+                sb.append(clsName).append(" ");
+            }
+        }
+        if(tag!=null){
+            if(tag.isEmpty()){
+                sb.append(tag).append(" ");
+            }
+        }
+        sb.append(message);
+        sb.append(Color.RESET);
+        return sb.toString();
+    }
+
+    public static String getCallerClassName() {
+        StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
+        for (int i=1; i<stElements.length; i++) {
+            StackTraceElement ste = stElements[i];
+            if (!ste.getClassName().equals(Log.class.getName()) && ste.getClassName().indexOf("java.lang.Thread")!=0) {
+                return ste.getClassName();
+            }
+        }
+        return null;
     }
 }
