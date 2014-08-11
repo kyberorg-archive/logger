@@ -188,7 +188,40 @@ public class Log {
 
     }
 
-    private static String makeString(){
-        return "";
+    private static String makeString(Color color, String letter, String tag, String message){
+        StringBuilder sb = new StringBuilder();
+        sb.append(color);
+        if(isLetterEnabled){
+            sb.append(letter).append(" ");
+        }
+        if(isTimeEnabled){
+            String ts = "";
+            sb.append(ts).append(" ");
+        }
+        if(isClassNameEnabled){
+            String clsName = getCallerClassName();
+            if(clsName!=null){
+                sb.append(clsName).append(" ");
+            }
+        }
+        if(tag!=null){
+            if(tag.isEmpty()){
+                sb.append(tag).append(" ");
+            }
+        }
+        sb.append(message);
+        sb.append(Color.RESET);
+        return sb.toString();
+    }
+
+    public static String getCallerClassName() {
+        StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
+        for (int i=1; i<stElements.length; i++) {
+            StackTraceElement ste = stElements[i];
+            if (!ste.getClassName().equals(Log.class.getName()) && ste.getClassName().indexOf("java.lang.Thread")!=0) {
+                return ste.getClassName();
+            }
+        }
+        return null;
     }
 }
