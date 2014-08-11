@@ -326,14 +326,14 @@ public class Log {
     /**
      * Holds values needed to build log string
      */
-    private class LogObject{
+    private static class LogObject{
         public LogLevel level;
         public String color;
         public String letter;
 
         public String tag;
         public String message;
-        public Throwable t;
+        public Throwable th;
 
 
         public LogObject(LogLevel level){
