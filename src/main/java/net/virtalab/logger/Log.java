@@ -220,11 +220,17 @@ public class Log {
     public static void wtf(String message){}
     public static void wtf(Throwable t, String message){}
 
-    private static void publish(){
+    /**
+     * Prints message
+     *
+     * @param level log level
+     * @param message ready-to-print message
+     */
+    private static void publish(LogLevel level, String message){
 
     }
 
-    private static String makeString(Color color, String letter, String tag, String message){
+    private static String makeString(Color color, String letter, String tag, String message,Throwable t){
         StringBuilder sb = new StringBuilder();
         sb.append(color);
         if(isLetterEnabled){
@@ -241,11 +247,17 @@ public class Log {
             }
         }
         if(tag!=null){
-            if(tag.isEmpty()){
+            if(! tag.isEmpty()){
                 sb.append(tag).append(" ");
             }
         }
-        sb.append(message);
+        if(message!=null){
+            if(! message.isEmpty()){
+                sb.append(message);
+            }
+        }
+        //TODO exception logging
+
         sb.append(Color.RESET);
         return sb.toString();
     }
