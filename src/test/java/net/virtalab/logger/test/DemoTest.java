@@ -5,7 +5,7 @@ import net.virtalab.logger.LogLevel;
 import org.junit.Test;
 
 /**
- * Not really test, but dermo
+ * Not really test, but demo
  */
 public class DemoTest {
 
