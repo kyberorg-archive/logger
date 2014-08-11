@@ -1,9 +1,9 @@
 package net.virtalab.logger;
 
 
+import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 /**
  * Brand New Logger inspired by android.util.Log
@@ -34,8 +34,11 @@ public class Log {
     private static boolean isTimeEnabled = true;
     private static boolean isClassNameEnabled = true;
 
-    //color matrix
+    //matrix 1,2,3
     private static Map<LogLevel,String> colorMatrix;
+    private static Map<LogLevel, String> letterMatrix;
+    private static Map<LogLevel, PrintStream> streamMatrix;
+
     static {
         colorMatrix = new HashMap<LogLevel, String>();
         //defaults
@@ -44,6 +47,20 @@ public class Log {
         colorMatrix.put(LogLevel.INFO, Color.GREEN);
         colorMatrix.put(LogLevel.DEBUG, Color.BLUE);
         colorMatrix.put(LogLevel.TRACE, Color.CYAN);
+
+        letterMatrix = new HashMap<LogLevel, String>();
+        letterMatrix.put(LogLevel.ERROR, "E");
+        letterMatrix.put(LogLevel.WARN, "W");
+        letterMatrix.put(LogLevel.INFO, "I");
+        letterMatrix.put(LogLevel.DEBUG, "D");
+        letterMatrix.put(LogLevel.TRACE, "T");
+
+        streamMatrix = new HashMap<LogLevel, PrintStream>();
+        streamMatrix.put(LogLevel.ERROR, System.err);
+        streamMatrix.put(LogLevel.WARN, System.err);
+        streamMatrix.put(LogLevel.INFO, System.out);
+        streamMatrix.put(LogLevel.DEBUG, System.out);
+        streamMatrix.put(LogLevel.TRACE, System.out);
     }
     /**
      * Makes initial configuration of logger
@@ -92,6 +109,16 @@ public class Log {
         colorMatrix.put(level,color);
     }
 
+    /**
+     * Change output stream for concrete log level
+     *
+     * @param level log level
+     * @param stream valid Print Stream
+     */
+    public static void changeStreamForLevel(LogLevel level, PrintStream stream){
+        if(level==null || stream==null){ return; }
+        streamMatrix.put(level, stream);
+    }
     /**
      * Updates (sets) new log level
      *
@@ -246,14 +273,18 @@ public class Log {
      * @param message ready-to-print message
      */
     private static void publish(LogLevel level, String message){
-
+        if(level==null || message==null){return; }
+        if(streamMatrix.containsKey(level)){
+            PrintStream stream = streamMatrix.get(level);
+            stream.println(message);
+        }
     }
 
-    private static String makeString(Color color, String letter, String tag, String message,Throwable t){
+    private static String makeString(LogObject logObject){
         StringBuilder sb = new StringBuilder();
-        sb.append(color);
+        sb.append(logObject.color);
         if(isLetterEnabled){
-            sb.append(letter).append(" ");
+            sb.append(logObject.letter).append(" ");
         }
         if(isTimeEnabled){
             String ts = "";
@@ -265,14 +296,14 @@ public class Log {
                 sb.append(clsName).append(" ");
             }
         }
-        if(tag!=null){
-            if(! tag.isEmpty()){
-                sb.append(tag).append(" ");
+        if(logObject.tag!=null){
+            if(! logObject.tag.isEmpty()){
+                sb.append(logObject.tag).append(" ");
             }
         }
-        if(message!=null){
-            if(! message.isEmpty()){
-                sb.append(message);
+        if(logObject.message!=null){
+            if(! logObject.message.isEmpty()){
+                sb.append(logObject.message);
             }
         }
         //TODO exception logging
@@ -290,5 +321,29 @@ public class Log {
             }
         }
         return null;
+    }
+
+    /**
+     * Holds values needed to build log string
+     */
+    private class LogObject{
+        public LogLevel level;
+        public String color;
+        public String letter;
+
+        public String tag;
+        public String message;
+        public Throwable t;
+
+
+        public LogObject(LogLevel level){
+            this.level = level;
+            if(colorMatrix.containsKey(level)){
+                this.color = colorMatrix.get(level);
+            }
+            if(letterMatrix.containsKey(level)){
+                this.letter = letterMatrix.get(level);
+            }
+        }
     }
 }
