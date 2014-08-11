@@ -4,6 +4,8 @@ package net.virtalab.logger;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +32,10 @@ public class Log {
     //log level
     public static final LogLevel defaultLogLevel = LogLevel.OFF;
     private static LogLevel currentLogLevel;
+
+    //time format
+    public static final String defaultTimestampFormat = "dd/MM/yy HH:mm:ss.SSS";
+    private static String currentTimestampFormat;
 
     //message format settings
     private static boolean isLetterEnabled = true;
@@ -58,6 +64,7 @@ public class Log {
             Log.currentLogLevel = level;
         } else {
             Log.currentLogLevel = defaultLogLevel;
+            Log.currentTimestampFormat = defaultTimestampFormat;
         }
     }
 
@@ -114,6 +121,18 @@ public class Log {
         Log.currentLogLevel = logLevel;
     }
 
+    /**
+     * Set desirable format of timestamp
+     * @see java.text.SimpleDateFormat
+     *
+     * @param timestampFormat ts format as SimpleDateFormat requires
+     */
+    public static void setTimestampFormat(String timestampFormat){
+        if(timestampFormat==null || timestampFormat.isEmpty()){
+            return;
+        }
+        Log.currentTimestampFormat = timestampFormat;
+    }
     /**
      * Provides log level
      *
@@ -440,7 +459,7 @@ public class Log {
             sb.append(logObject.letter).append(" ");
         }
         if(isTimeEnabled){
-            String ts = "";
+            String ts = getTimeStamp();
             sb.append(ts).append(" ");
         }
         if(isClassNameEnabled){
@@ -492,6 +511,22 @@ public class Log {
         PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(pw);
         return sw.toString();
+    }
+
+    private static String getTimeStamp(){
+        Date now;
+        String rslt;
+        SimpleDateFormat format;
+        try {
+            format = new SimpleDateFormat(Log.currentTimestampFormat);
+        }catch (Exception e){
+            format = new SimpleDateFormat(Log.defaultTimestampFormat);
+        }
+
+        now = new Date();
+        rslt = format.format(now);
+
+        return rslt;
     }
 
     /**

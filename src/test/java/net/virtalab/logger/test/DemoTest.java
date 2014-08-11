@@ -1,5 +1,6 @@
 package net.virtalab.logger.test;
 
+import net.virtalab.logger.Color;
 import net.virtalab.logger.Log;
 import net.virtalab.logger.LogLevel;
 import org.junit.Test;
@@ -18,9 +19,19 @@ public class DemoTest {
     public void demo(){
         //setup logger
         Log.init(LogLevel.TRACE);
+        //if you don't happy with default color schema, you can change colors
+        Log.changeMessageColor(LogLevel.DEBUG, Color.CYAN);
+        Log.changeMessageColor(LogLevel.TRACE, Color.WHITE);
+
         //at this step we have full log messages.
         Log.t("This is trace message");
-        Log.d(TAG,"This is debug message with Tag (Prefix)");
+        Log.d(TAG, "This is debug message with Tag (Prefix)");
+
+        //Changing timestamp format, if you don't happy with default one
+        String newTSFormat = "dd.MM.yy hh:mm";
+        Log.setTimestampFormat(newTSFormat);
+        Log.debug("Changing timestamp to format "+newTSFormat);
+
         Log.i("For your information: at next line you will be warned");
         Log.w("Just a word of warning");
         Log.e("Error line");
@@ -29,7 +40,7 @@ public class DemoTest {
         //assume that we don't want to see timestamp anymore
         Log.noTime();
 
-        Log.i("Look ma, there is no timestamp at this line!");
+        Log.i("Look ma, there is no timestamp at this line (and below)!");
         Log.info("Methods Log.info() and Log.i() have same effect");
 
         //assume that we don't want to see class name as well
@@ -41,5 +52,6 @@ public class DemoTest {
         }catch (ArithmeticException ae){
             Log.e(TAG,ae);
         }
+        System.out.println("THE END. Thank you for been with us!");
     }
 }

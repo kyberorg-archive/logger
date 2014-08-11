@@ -12,6 +12,7 @@
  * ~~Set custom color for each log level~~
  * ~~Set custom stream for each log level~~
  * Log exception without TAG
+ * Timestamp format
 
 ### Version 1.4-SNAPSHOT
 * ~~Added Javadocs and Unit tests~~
