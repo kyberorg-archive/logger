@@ -487,8 +487,6 @@ public class Log {
             }
         }
         if(logObject.th!=null){
-            sb.append(" ");
-            sb.append("Exception: ").append(logObject.th.getMessage());
             sb.append(NEWLINE);
             sb.append(getStackTrace(logObject.th));
         }
