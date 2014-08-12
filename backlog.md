@@ -11,7 +11,7 @@
  * ~~Logging exceptions~~
  * ~~Set custom color for each log level~~
  * ~~Set custom stream for each log level~~
- * Log exception without TAG
+ * ~~Log exception without TAG~~
  * ~~Timestamp format~~
  * ~~Option: noTag~~
 

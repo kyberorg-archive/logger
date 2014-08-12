@@ -40,7 +40,6 @@ public class FuzzingLogTest {
         Log.changeMessageColor(LogLevel.DEBUG, Color.CYAN);
 
         //following two lines we don't want to see
-        Log.t(null);
         Log.d(TAG, "This is debug message with Tag (Prefix)");
 
         //Changing timestamp format...to NULL
@@ -51,7 +50,6 @@ public class FuzzingLogTest {
         //if we see default TS, test passed
 
         Log.i("");
-        Log.w(null);
         Log.e(TAG,"");
         Log.wtf("");
 

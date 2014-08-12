@@ -71,6 +71,8 @@ public class DemoTest {
             int a = 5/0;
         }catch (ArithmeticException ae){
             Log.e(TAG,ae);
+            //And we can log without TAG as well
+            Log.e(ae);
         }
 
         //There is ability to change Stream for certain level
