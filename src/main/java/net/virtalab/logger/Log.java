@@ -165,18 +165,6 @@ public class Log {
             printIt(l);
         }
     }
-    public static void trace(String tag, String message, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
-            LogObject l = createLogObject(LogLevel.TRACE, tag, message, t);
-            printIt(l);
-        }
-    }
-    public static void trace(String tag, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
-            LogObject l = createLogObject(LogLevel.TRACE, tag, t);
-            printIt(l);
-        }
-    }
 
     public static void trace(String message){
         if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
@@ -184,6 +172,21 @@ public class Log {
             printIt(l);
         }
     }
+
+    public static void trace(String tag, String message, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
+            LogObject l = createLogObject(LogLevel.TRACE, tag, message, t);
+            printIt(l);
+        }
+    }
+
+    public static void trace(String tag, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
+            LogObject l = createLogObject(LogLevel.TRACE, tag, t);
+            printIt(l);
+        }
+    }
+
     public static void trace(Throwable t){
         if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
             LogObject l = createLogObject(LogLevel.TRACE, t);
@@ -194,31 +197,26 @@ public class Log {
     public static void t(String tag, String message){
         trace(tag, message);
     }
+
+    public static void t(String message){
+        trace(message);
+    }
+
     public static void t(String tag, String message, Throwable t){
         trace(tag, message, t);
     }
+
     public static void t(String tag, Throwable t){
         trace(tag, t);
     }
 
-    public static void t(String message){ trace(message);}
-    public static void t(Throwable t){ trace(t);}
+    public static void t(Throwable t){
+        trace(t);
+    }
 
     public static void debug(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
             LogObject l = createLogObject(LogLevel.DEBUG, tag, message);
-            printIt(l);
-        }
-    }
-    public static void debug(String tag, String message, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
-            LogObject l = createLogObject(LogLevel.DEBUG, tag, message, t);
-            printIt(l);
-        }
-    }
-    public static void debug(String tag, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
-            LogObject l = createLogObject(LogLevel.DEBUG, tag, t);
             printIt(l);
         }
     }
@@ -229,6 +227,21 @@ public class Log {
             printIt(l);
         }
     }
+
+    public static void debug(String tag, String message, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
+            LogObject l = createLogObject(LogLevel.DEBUG, tag, message, t);
+            printIt(l);
+        }
+    }
+
+    public static void debug(String tag, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
+            LogObject l = createLogObject(LogLevel.DEBUG, tag, t);
+            printIt(l);
+        }
+    }
+
     public static void debug(Throwable t){
         if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
             LogObject l = createLogObject(LogLevel.DEBUG, t);
@@ -239,31 +252,26 @@ public class Log {
     public static void d(String tag, String message){
         debug(tag, message);
     }
+
+    public static void d(String message){
+        debug(message);
+    }
+
     public static void d(String tag, String message, Throwable t){
         debug(tag, message, t);
     }
+
     public static void d(String tag, Throwable t){
         debug(tag, t);
     }
 
-    public static void d(String message){ debug(message);}
-    public static void d(Throwable t){ debug(t);}
+    public static void d(Throwable t){
+        debug(t);
+    }
 
     public static void info(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.INFO.priority) {
             LogObject l = createLogObject(LogLevel.INFO, tag, message);
-            printIt(l);
-        }
-    }
-    public static void info(String tag, String message, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.INFO.priority) {
-            LogObject l = createLogObject(LogLevel.INFO, tag, message, t);
-            printIt(l);
-        }
-    }
-    public static void info(String tag, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.INFO.priority) {
-            LogObject l = createLogObject(LogLevel.INFO, tag, t);
             printIt(l);
         }
     }
@@ -274,6 +282,21 @@ public class Log {
             printIt(l);
         }
     }
+
+    public static void info(String tag, String message, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.INFO.priority) {
+            LogObject l = createLogObject(LogLevel.INFO, tag, message, t);
+            printIt(l);
+        }
+    }
+
+    public static void info(String tag, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.INFO.priority) {
+            LogObject l = createLogObject(LogLevel.INFO, tag, t);
+            printIt(l);
+        }
+    }
+
     public static void info(Throwable t){
         if(currentLogLevel.priority >= LogLevel.INFO.priority) {
             LogObject l = createLogObject(LogLevel.INFO, t);
@@ -284,31 +307,26 @@ public class Log {
     public static void i(String tag, String message){
         info(tag, message);
     }
+
+    public static void i(String message){
+        info(message);
+    }
+
     public static void i(String tag, String message, Throwable t){
         info(tag, message, t);
     }
+
     public static void i(String tag, Throwable t){
         info(tag, t);
     }
 
-    public static void i(String message){ info(message);}
-    public static void i(Throwable t){ info(t);}
+    public static void i(Throwable t){
+        info(t);
+    }
 
     public static void warn(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.WARN.priority) {
             LogObject l = createLogObject(LogLevel.WARN, tag, message);
-            printIt(l);
-        }
-    }
-    public static void warn(String tag, String message, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.WARN.priority) {
-            LogObject l = createLogObject(LogLevel.WARN, tag, message, t);
-            printIt(l);
-        }
-    }
-    public static void warn(String tag, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.WARN.priority) {
-            LogObject l = createLogObject(LogLevel.WARN, tag, t);
             printIt(l);
         }
     }
@@ -319,6 +337,21 @@ public class Log {
             printIt(l);
         }
     }
+
+    public static void warn(String tag, String message, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.WARN.priority) {
+            LogObject l = createLogObject(LogLevel.WARN, tag, message, t);
+            printIt(l);
+        }
+    }
+
+    public static void warn(String tag, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.WARN.priority) {
+            LogObject l = createLogObject(LogLevel.WARN, tag, t);
+            printIt(l);
+        }
+    }
+
     public static void warn(Throwable t){
         if(currentLogLevel.priority >= LogLevel.WARN.priority) {
             LogObject l = createLogObject(LogLevel.WARN, t);
@@ -329,31 +362,26 @@ public class Log {
     public static void w(String tag, String message){
         warn(tag, message);
     }
+
+    public static void w(String message){
+        warn(message);
+    }
+
     public static void w(String tag, String message, Throwable t){
         warn(tag, message, t);
     }
+
     public static void w(String tag, Throwable t){
         warn(tag, t);
     }
 
-    public static void w(String message){ warn(message);}
-    public static void w(Throwable t){ warn(t);}
+    public static void w(Throwable t){
+        warn(t);
+    }
 
     public static void error(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, message);
-            printIt(l);
-        }
-    }
-    public static void error(String tag, String message, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
-            LogObject l = createLogObject(LogLevel.ERROR, tag, message, t);
-            printIt(l);
-        }
-    }
-    public static void error(String tag, Throwable t){
-        if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
-            LogObject l = createLogObject(LogLevel.ERROR, tag, t);
             printIt(l);
         }
     }
@@ -364,6 +392,21 @@ public class Log {
             printIt(l);
         }
     }
+
+    public static void error(String tag, String message, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
+            LogObject l = createLogObject(LogLevel.ERROR, tag, message, t);
+            printIt(l);
+        }
+    }
+
+    public static void error(String tag, Throwable t){
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
+            LogObject l = createLogObject(LogLevel.ERROR, tag, t);
+            printIt(l);
+        }
+    }
+
     public static void error(Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, t);
@@ -374,28 +417,42 @@ public class Log {
     public static void err(String tag, String message){
         error(tag, message);
     }
+
+    public static void err(String message){
+        error(message);
+    }
+
     public static void err(String tag, String message, Throwable t){
         error(tag, message, t);
     }
+
     public static void err(String tag, Throwable t){
         error(tag, t);
     }
 
-    public static void err(String message){ error(message);}
-    public static void err(Throwable t){ error(t);}
+    public static void err(Throwable t){
+        error(t);
+    }
 
     public static void e(String tag, String message){
         error(tag, message);
     }
+
+    public static void e(String message){
+        error(message);
+    }
+
     public static void e(String tag, String message, Throwable t){
         error(tag, message, t);
     }
+
     public static void e(String tag, Throwable t){
         error(tag, t);
     }
 
-    public static void e(String message){ error(message);}
-    public static void e(Throwable t){ error(t);}
+    public static void e(Throwable t){
+        error(t);
+    }
 
     public static void wtf(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
@@ -404,6 +461,15 @@ public class Log {
             printIt(l);
         }
     }
+
+    public static void wtf(String message){
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
+            LogObject l = createLogObject(LogLevel.ERROR, message);
+            l.letter = "WTF";
+            printIt(l);
+        }
+    }
+
     public static void wtf(String tag, String message, Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, message, t);
@@ -419,13 +485,6 @@ public class Log {
         }
     }
 
-    public static void wtf(String message){
-        if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
-            LogObject l = createLogObject(LogLevel.ERROR, message);
-            l.letter = "WTF";
-            printIt(l);
-        }
-    }
     public static void wtf(Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, t);
