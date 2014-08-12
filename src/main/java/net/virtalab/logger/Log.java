@@ -657,9 +657,11 @@ public class Log {
      */
     public static void reset(){
         currentLogLevel = defaultLogLevel;
+        currentTimestampFormat = defaultTimestampFormat;
         isLetterEnabled = true;
         isTimeEnabled = true;
         isClassNameEnabled = true;
+        isTagEnabled = true;
         populateMatrix();
     }
     /**
