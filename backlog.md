@@ -13,7 +13,7 @@
  * ~~Set custom stream for each log level~~
  * Log exception without TAG
  * ~~Timestamp format~~
- * Option: noTag
+ * ~~Option: noTag~~
 
 ### Version 1.4-SNAPSHOT
 * ~~Added Javadocs and Unit tests~~

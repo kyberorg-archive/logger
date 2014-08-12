@@ -49,6 +49,10 @@ public class DemoTest {
         Log.e(TAG, "Error line");
         Log.wtf(TAG, "What a terrible fail! Read the manual");
 
+        //assume that we want no more tags, let's disable them
+        Log.noTag();
+        Log.i(TAG,"This message (and others below) appear without tag (prefix), even if we pass it to method");
+
         //assume that we don't want to see timestamp anymore
         Log.noTime();
 

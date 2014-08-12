@@ -41,6 +41,7 @@ public class Log {
     private static boolean isLetterEnabled = true;
     private static boolean isTimeEnabled = true;
     private static boolean isClassNameEnabled = true;
+    private static boolean isTagEnabled = true;
 
     //constant
     public static final String NEWLINE = System.getProperty("line.separator");
@@ -89,6 +90,12 @@ public class Log {
         Log.isClassNameEnabled = false;
     }
 
+    /**
+     * Do not show tag, even if is passed as arg
+     */
+    public static void noTag(){
+        Log.isTagEnabled = false;
+    }
     /**
      * Change log message color for concrete log level
      * @param level log level
@@ -469,7 +476,7 @@ public class Log {
                 sb.append(clsName).append(" ");
             }
         }
-        if(logObject.tag!=null){
+        if(isTagEnabled && logObject.tag!=null){
             if(! logObject.tag.isEmpty()){
                 sb.append(logObject.tag).append(" ");
             }
