@@ -80,12 +80,44 @@ public class DemoTest {
         PrintStream errStream = new PrintStream(os);
         Log.changeStreamForLevel(LogLevel.ERROR,errStream);
         Log.e("Err 1");
-        Log.error(" ");
         Log.err("Err 2");
         String errors = os.toString();
         Log.i("We have caught following errors: "+errors);
         //Status Quo
         Log.changeStreamForLevel(LogLevel.ERROR, System.err);
+
+        Log.i("Now let's Reset Log to defaults and see more examples...");
+        Log.reset();
+        Log.updateCurrentLogLevel(LogLevel.TRACE);
+
+        Log.w("Now we intentionally dive into exception");
+        Object[] objects = new Object[1];
+        try {
+            Object neverGotMe = objects[2];
+        }catch (ArrayIndexOutOfBoundsException e){
+            //we can log it with message and TAG
+            String ourCustomMessage = "You cannot ask 3rd element when array has only 2 elements";
+            Log.t(TAG, ourCustomMessage, e);
+            Log.i(TAG, ourCustomMessage, e);
+            Log.w(TAG, ourCustomMessage, e);
+            Log.e(TAG, ourCustomMessage, e);
+            Log.wtf(TAG, ourCustomMessage, e);
+
+            //or only tag and exception
+            Log.t(TAG, e);
+            Log.i(TAG, e);
+            Log.w(TAG, e);
+            Log.e(TAG, e);
+            Log.wtf(TAG, e);
+
+            //or just exception
+            Log.t(e);
+            Log.i(e);
+            Log.w(e);
+            Log.e(e);
+            Log.wtf(e);
+
+        }
 
         System.out.println("THE END. Thank you for been with us!");
     }
