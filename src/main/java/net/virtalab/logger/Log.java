@@ -118,6 +118,7 @@ public class Log {
      * @param logLevel desirable log level
      */
     public static void updateCurrentLogLevel(LogLevel logLevel) {
+        if(logLevel==null){ return; }
         Log.currentLogLevel = logLevel;
     }
 
