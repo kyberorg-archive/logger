@@ -1,6 +1,8 @@
 # Virtalab Logger
  This is simple logger for our project.
  It is not really customizable due to convention-over-configuration idea
+## Version 1.5.1
+ Hotfix version. Fixed issue#2: https://github.com/virtalab/logger/issues/2
 ## Version 1.5
  New Log class, inspired by Android Log
  
