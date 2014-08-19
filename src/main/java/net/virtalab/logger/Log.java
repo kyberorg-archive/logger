@@ -31,7 +31,7 @@ public class Log {
 
     //log level
     public static final LogLevel defaultLogLevel = LogLevel.OFF;
-    private static LogLevel currentLogLevel;
+    private static LogLevel currentLogLevel = defaultLogLevel;
 
     //time format
     public static final String defaultTimestampFormat = "dd/MM/yy HH:mm:ss.SSS";
