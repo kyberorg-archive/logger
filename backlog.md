@@ -8,9 +8,8 @@
 
 ### Version 1.6-SNAPSHOT
 - [x] Support for all log levels in Log object to accept ```java.lang.Object``` as param
-- [-] Override toString() at Log
 - [x] Add more examples at Demo Test
-- [ ] Documentation (Javadocs for public API)
+- [x] Documentation (Javadocs for public API)
 
 ### Version 1.5-SNAPSHOT
  * ~~New Log class, inspired by Android Log~~
