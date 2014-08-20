@@ -1,5 +1,14 @@
 #Logger Backlog
 
+### Version 1.7-SNAPSHOT
+- [ ] PHP's var_dump() functionality
+- [ ] Dumper object for dumping objects
+- [ ] Dumper setting ```boolean autoboxingTypesAsObjects = true ``` , if true will print ```java.lang.Boolean``` and others as regular objects, otherwise will print boxed primitive
+- [ ] Dumper setting ```boolean stringAsObject = false``` , if true will dump String as regular object, otherwise will print string with value
+
+### Version 1.6-SNAPSHOT
+- [ ] Support for all log levels in Log object to accept ```java.lang.Object``` as param
+
 ### Version 1.5-SNAPSHOT
  * ~~New Log class, inspired by Android Log~~
  * ~~Color for entire message~~
