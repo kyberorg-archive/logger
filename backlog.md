@@ -7,7 +7,9 @@
 - [ ] Dumper setting ```boolean stringAsObject = false``` , if true will dump String as regular object, otherwise will print string with value
 
 ### Version 1.6-SNAPSHOT
-- [ ] Support for all log levels in Log object to accept ```java.lang.Object``` as param
+- [x] Support for all log levels in Log object to accept ```java.lang.Object``` as param
+- [x] Add more examples at Demo Test
+- [x] Documentation (Javadocs for public API)
 
 ### Version 1.5-SNAPSHOT
  * ~~New Log class, inspired by Android Log~~

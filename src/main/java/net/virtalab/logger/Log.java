@@ -31,11 +31,23 @@ public class Log {
 
     //log level
     public static final LogLevel defaultLogLevel = LogLevel.OFF;
+    /**
+     * Defines log level we use at moment of logging
+     * By default it equals to default log level
+     * Normally you define it ones at application startup,
+     * but also possible to update as many times as you want
+     * see {@link #updateCurrentLogLevel(LogLevel)}
+     */
     private static LogLevel currentLogLevel = defaultLogLevel;
 
     //time format
     public static final String defaultTimestampFormat = "dd/MM/yy HH:mm:ss.SSS";
-    private static String currentTimestampFormat;
+    /**
+     * Defines timestamp format. now() is a moment of logging.
+     * By default it equals to default timestamp format (dd/MM/yy HH:mm:ss.SSS)
+     * Format can by customized by using {@link #setTimestampFormat(String)}
+     */
+    private static String currentTimestampFormat = defaultTimestampFormat;
 
     //message format settings
     private static boolean isLetterEnabled = true;
@@ -97,7 +109,8 @@ public class Log {
         Log.isTagEnabled = false;
     }
     /**
-     * Change log message color for concrete log level
+     * Changes log message color for concrete log level
+     *
      * @param level log level
      * @param color one of possible ANSI-Colors
      */
@@ -110,7 +123,7 @@ public class Log {
     }
 
     /**
-     * Change output stream for concrete log level
+     * Changes output stream for concrete log level
      *
      * @param level log level
      * @param stream valid Print Stream
@@ -120,7 +133,7 @@ public class Log {
         streamMatrix.put(level, stream);
     }
     /**
-     * Updates (sets) new log level
+     * Updates (sets) new current log level {@link #currentLogLevel}
      *
      * @param logLevel desirable log level
      */
@@ -130,10 +143,10 @@ public class Log {
     }
 
     /**
-     * Set desirable format of timestamp
-     * @see java.text.SimpleDateFormat
+     * Sets desirable format of timestamp
      *
      * @param timestampFormat ts format as SimpleDateFormat requires
+     * @see java.text.SimpleDateFormat
      */
     public static void setTimestampFormat(String timestampFormat){
         if(timestampFormat==null || timestampFormat.isEmpty()){
@@ -141,8 +154,9 @@ public class Log {
         }
         Log.currentTimestampFormat = timestampFormat;
     }
+
     /**
-     * Provides log level
+     * Provides log level set at moment of calling
      *
      * @return current value of log level
      */
@@ -159,6 +173,12 @@ public class Log {
         return currentLogLevel.asInt();
     }
 
+    /**
+     * Prints tag and TRACE message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void trace(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
             LogObject l = createLogObject(LogLevel.TRACE, tag, message);
@@ -166,6 +186,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints TRACE message
+     *
+     * @param message message to log
+     */
     public static void trace(String message){
         if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
             LogObject l = createLogObject(LogLevel.TRACE, message);
@@ -173,6 +198,13 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at TRACE level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void trace(String tag, String message, Throwable t){
         if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
             LogObject l = createLogObject(LogLevel.TRACE, tag, message, t);
@@ -180,6 +212,12 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag and exception stacktrace at TRACE level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void trace(String tag, Throwable t){
         if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
             LogObject l = createLogObject(LogLevel.TRACE, tag, t);
@@ -187,6 +225,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at TRACE level
+     *
+     * @param t exception or error object
+     */
     public static void trace(Throwable t){
         if(currentLogLevel.priority >= LogLevel.TRACE.priority) {
             LogObject l = createLogObject(LogLevel.TRACE, t);
@@ -194,26 +237,84 @@ public class Log {
         }
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at TRACE level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void trace(Object o){
+        if(currentLogLevel.priority >= LogLevel.TRACE.priority){
+            LogObject l  = createLogObject(LogLevel.TRACE, o);
+            printIt(l);
+        }
+	}
+
+    /**
+     * Prints tag and TRACE message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void t(String tag, String message){
         trace(tag, message);
     }
 
+    /**
+     * Prints TRACE message
+     *
+     * @param message message to log
+     */
     public static void t(String message){
         trace(message);
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at TRACE level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void t(String tag, String message, Throwable t){
         trace(tag, message, t);
     }
 
+    /**
+     * Prints tag and exception stacktrace at TRACE level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void t(String tag, Throwable t){
         trace(tag, t);
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at TRACE level
+     *
+     * @param t exception or error object
+     */
     public static void t(Throwable t){
         trace(t);
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at TRACE level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void t(Object o) {
+        trace(o);
+    }
+
+    /**
+     * Prints tag and DEBUG message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void debug(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
             LogObject l = createLogObject(LogLevel.DEBUG, tag, message);
@@ -221,6 +322,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints DEBUG message
+     *
+     * @param message message to log
+     */
     public static void debug(String message){
         if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
             LogObject l = createLogObject(LogLevel.DEBUG, message);
@@ -228,6 +334,13 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at DEBUG level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void debug(String tag, String message, Throwable t){
         if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
             LogObject l = createLogObject(LogLevel.DEBUG, tag, message, t);
@@ -235,6 +348,12 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag and exception stacktrace at DEBUG level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void debug(String tag, Throwable t){
         if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
             LogObject l = createLogObject(LogLevel.DEBUG, tag, t);
@@ -242,6 +361,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at DEBUG level
+     *
+     * @param t exception or error object
+     */
     public static void debug(Throwable t){
         if(currentLogLevel.priority >= LogLevel.DEBUG.priority) {
             LogObject l = createLogObject(LogLevel.DEBUG, t);
@@ -249,26 +373,84 @@ public class Log {
         }
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at DEBUG level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void debug(Object o){
+        if(currentLogLevel.priority >= LogLevel.DEBUG.priority){
+            LogObject l  = createLogObject(LogLevel.DEBUG, o);
+            printIt(l);
+        }
+    }
+
+    /**
+     * Prints tag and DEBUG message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void d(String tag, String message){
         debug(tag, message);
     }
 
+    /**
+     * Prints DEBUG message
+     *
+     * @param message message to log
+     */
     public static void d(String message){
         debug(message);
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at DEBUG level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void d(String tag, String message, Throwable t){
         debug(tag, message, t);
     }
 
+    /**
+     * Prints tag and exception stacktrace at DEBUG level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void d(String tag, Throwable t){
         debug(tag, t);
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at DEBUG level
+     *
+     * @param t exception or error object
+     */
     public static void d(Throwable t){
         debug(t);
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at DEBUG level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void d(Object o){
+        debug(o);
+    }
+
+    /**
+     * Prints tag and INFO message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void info(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.INFO.priority) {
             LogObject l = createLogObject(LogLevel.INFO, tag, message);
@@ -276,6 +458,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints INFO message
+     *
+     * @param message message to log
+     */
     public static void info(String message){
         if(currentLogLevel.priority >= LogLevel.INFO.priority) {
             LogObject l = createLogObject(LogLevel.INFO, message);
@@ -283,6 +470,13 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at INFO level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void info(String tag, String message, Throwable t){
         if(currentLogLevel.priority >= LogLevel.INFO.priority) {
             LogObject l = createLogObject(LogLevel.INFO, tag, message, t);
@@ -290,6 +484,12 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag and exception stacktrace at INFO level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void info(String tag, Throwable t){
         if(currentLogLevel.priority >= LogLevel.INFO.priority) {
             LogObject l = createLogObject(LogLevel.INFO, tag, t);
@@ -297,6 +497,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at INFO level
+     *
+     * @param t exception or error object
+     */
     public static void info(Throwable t){
         if(currentLogLevel.priority >= LogLevel.INFO.priority) {
             LogObject l = createLogObject(LogLevel.INFO, t);
@@ -304,26 +509,84 @@ public class Log {
         }
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at INFO level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void info(Object o){
+        if(currentLogLevel.priority >= LogLevel.INFO.priority){
+            LogObject l  = createLogObject(LogLevel.INFO, o);
+            printIt(l);
+        }
+    }
+
+    /**
+     * Prints tag and INFO message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void i(String tag, String message){
         info(tag, message);
     }
 
+    /**
+     * Prints INFO message
+     *
+     * @param message message to log
+     */
     public static void i(String message){
         info(message);
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at INFO level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void i(String tag, String message, Throwable t){
         info(tag, message, t);
     }
 
+    /**
+     * Prints tag and exception stacktrace at INFO level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void i(String tag, Throwable t){
         info(tag, t);
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at INFO level
+     *
+     * @param t exception or error object
+     */
     public static void i(Throwable t){
         info(t);
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at INFO level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void i(Object o){
+        info(o);
+    }
+
+    /**
+     * Prints tag and WARNING message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void warn(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.WARN.priority) {
             LogObject l = createLogObject(LogLevel.WARN, tag, message);
@@ -331,6 +594,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints WARNING message
+     *
+     * @param message message to log
+     */
     public static void warn(String message){
         if(currentLogLevel.priority >= LogLevel.WARN.priority) {
             LogObject l = createLogObject(LogLevel.WARN, message);
@@ -338,6 +606,13 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at WARNING level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void warn(String tag, String message, Throwable t){
         if(currentLogLevel.priority >= LogLevel.WARN.priority) {
             LogObject l = createLogObject(LogLevel.WARN, tag, message, t);
@@ -345,6 +620,12 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag and exception stacktrace at WARNING level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void warn(String tag, Throwable t){
         if(currentLogLevel.priority >= LogLevel.WARN.priority) {
             LogObject l = createLogObject(LogLevel.WARN, tag, t);
@@ -352,6 +633,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at WARNING level
+     *
+     * @param t exception or error object
+     */
     public static void warn(Throwable t){
         if(currentLogLevel.priority >= LogLevel.WARN.priority) {
             LogObject l = createLogObject(LogLevel.WARN, t);
@@ -359,26 +645,84 @@ public class Log {
         }
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at WARNING level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void warn(Object o){
+        if(currentLogLevel.priority >= LogLevel.WARN.priority){
+            LogObject l  = createLogObject(LogLevel.WARN, o);
+            printIt(l);
+        }
+    }
+
+    /**
+     * Prints tag and WARNING message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void w(String tag, String message){
         warn(tag, message);
     }
 
+    /**
+     * Prints WARNING message
+     *
+     * @param message message to log
+     */
     public static void w(String message){
         warn(message);
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at WARNING level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void w(String tag, String message, Throwable t){
         warn(tag, message, t);
     }
 
+    /**
+     * Prints tag and exception stacktrace at WARNING level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void w(String tag, Throwable t){
         warn(tag, t);
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at WARNING level
+     *
+     * @param t exception or error object
+     */
     public static void w(Throwable t){
         warn(t);
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at WARNING level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void w(Object o){
+        warn(o);
+    }
+
+    /**
+     * Prints tag and ERROR message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void error(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, message);
@@ -386,6 +730,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints ERROR message
+     *
+     * @param message message to log
+     */
     public static void error(String message){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, message);
@@ -393,6 +742,13 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at ERROR level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void error(String tag, String message, Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, message, t);
@@ -400,6 +756,12 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag and exception stacktrace at ERROR level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void error(String tag, Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, t);
@@ -407,6 +769,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at ERROR level
+     *
+     * @param t exception or error object
+     */
     public static void error(Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, t);
@@ -414,46 +781,143 @@ public class Log {
         }
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at ERROR level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void error(Object o){
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority){
+            LogObject l  = createLogObject(LogLevel.ERROR, o);
+            printIt(l);
+        }
+    }
+
+    /**
+     * Prints tag and ERROR message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void err(String tag, String message){
         error(tag, message);
     }
 
+    /**
+     * Prints ERROR message
+     *
+     * @param message message to log
+     */
     public static void err(String message){
         error(message);
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at ERROR level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void err(String tag, String message, Throwable t){
         error(tag, message, t);
     }
 
+    /**
+     * Prints tag and exception stacktrace at ERROR level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void err(String tag, Throwable t){
         error(tag, t);
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at ERROR level
+     *
+     * @param t exception or error object
+     */
     public static void err(Throwable t){
         error(t);
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at ERROR level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void err(Object o){
+        error(o);
+    }
+
+    /**
+     * Prints tag and ERROR message
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void e(String tag, String message){
         error(tag, message);
     }
 
+    /**
+     * Prints ERROR message
+     *
+     * @param message message to log
+     */
     public static void e(String message){
         error(message);
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at ERROR level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void e(String tag, String message, Throwable t){
         error(tag, message, t);
     }
 
+    /**
+     * Prints tag and exception stacktrace at ERROR level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void e(String tag, Throwable t){
         error(tag, t);
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at ERROR level
+     *
+     * @param t exception or error object
+     */
     public static void e(Throwable t){
         error(t);
     }
 
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at ERROR level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void e(Object o){
+        error(o);
+    }
+
+    /**
+     * Prints tag and "What the failure?" message. Report problem that should never happen
+     *
+     * @param tag tag aka prefix
+     * @param message ready-to-print message
+     */
     public static void wtf(String tag, String message){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, message);
@@ -462,6 +926,11 @@ public class Log {
         }
     }
 
+    /**
+     * Prints "What the failure?" message. Report problem that should never happen.
+     *
+     * @param message message to log
+     */
     public static void wtf(String message){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, message);
@@ -470,6 +939,13 @@ public class Log {
         }
     }
 
+    /**
+     * Prints tag, custom message and exception stacktrace at any (but OFF) level
+     *
+     * @param tag tag aka prefix
+     * @param message custom message
+     * @param t exception or error object
+     */
     public static void wtf(String tag, String message, Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, message, t);
@@ -477,6 +953,13 @@ public class Log {
             printIt(l);
         }
     }
+
+    /**
+     * Prints tag and exception stacktrace at any (but OFF) level
+     *
+     * @param tag tag aka prefix
+     * @param t exception or error object
+     */
     public static void wtf(String tag, Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, tag, t);
@@ -485,10 +968,28 @@ public class Log {
         }
     }
 
+    /**
+     * Prints just exception stacktrace without any prefixes and messages at any (but OFF) level
+     *
+     * @param t exception or error object
+     */
     public static void wtf(Throwable t){
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, t);
             l.letter = "WTF";
+            printIt(l);
+        }
+    }
+
+    /**
+     * Prints any object using its string representation {@link Object#toString()} at any (but OFF) level
+     *
+     * @param o any object
+     * @since 1.6
+     */
+    public static void wtf(Object o){
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority){
+            LogObject l  = createLogObject(LogLevel.ERROR, o);
             printIt(l);
         }
     }
@@ -519,6 +1020,12 @@ public class Log {
         }
     }
 
+    /**
+     * Produces log string from LogObject
+     *
+     * @param logObject log object with all properties set
+     * @return ready-to-print string
+     */
     private static String makeString(LogObject logObject){
         StringBuilder sb = new StringBuilder();
         sb.append(logObject.color);
@@ -553,6 +1060,11 @@ public class Log {
         return sb.toString();
     }
 
+    /**
+     * Finds short name of class that called Log method
+     *
+     * @return string contains name of class or NULL in case of error
+     */
     private static String getCallerClassName() {
         StackTraceElement[] stElements = Thread.currentThread().getStackTrace();
         for (int i = 1; i < stElements.length; i++) {
@@ -571,6 +1083,12 @@ public class Log {
         return null;
     }
 
+    /**
+     * Throwable's stacktrace to String
+     *
+     * @param t throwable with its stacktrace
+     * @return string with stacktrace
+     */
     private static String getStackTrace(Throwable t){
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
@@ -578,6 +1096,11 @@ public class Log {
         return sw.toString();
     }
 
+    /**
+     * Calculates timestamp, applies current format and provide it as string
+     *
+     * @return string with timestamp
+     */
     private static String getTimeStamp(){
         Date now;
         String rslt;
@@ -673,6 +1196,19 @@ public class Log {
     }
 
     /**
+     * Standard actions for object
+     * @param lvl log level
+     * @param o any object
+     * @return LogObject for internal use
+     */
+    private static LogObject createLogObject(LogLevel lvl, Object o){
+        if(o==null){ return null; }
+        LogObject l = createLogObject(lvl);
+        l.message = o.toString();
+        return l;
+    }
+
+    /**
      * Creates new instance of Log Object with given LogLevel
      *
      * @param l given log level (color and letter depends on it)
@@ -721,6 +1257,7 @@ public class Log {
         isTagEnabled = true;
         populateMatrix();
     }
+
     /**
      * Holds values needed to build log string
      */
