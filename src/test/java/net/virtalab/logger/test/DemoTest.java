@@ -119,6 +119,15 @@ public class DemoTest {
 
         }
 
+        //Since 1.6, we can log any object
+        //see how it works
+        Object object = new Object();
+        Log.t(object);
+        Log.i(object);
+        Log.w(object);
+        Log.e(object);
+        Log.wtf(object);
+
         System.out.println("THE END. Thank you for been with us!");
     }
 }

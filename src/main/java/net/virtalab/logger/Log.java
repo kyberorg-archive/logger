@@ -194,6 +194,13 @@ public class Log {
         }
     }
 
+    public static void trace(Object o){
+        if(currentLogLevel.priority >= LogLevel.TRACE.priority){
+            LogObject l  = createLogObject(LogLevel.TRACE, o);
+            printIt(l);
+        }
+	}
+
     public static void t(String tag, String message){
         trace(tag, message);
     }
@@ -212,6 +219,10 @@ public class Log {
 
     public static void t(Throwable t){
         trace(t);
+    }
+
+    public static void t(Object o) {
+        trace(o);
     }
 
     public static void debug(String tag, String message){
@@ -249,6 +260,13 @@ public class Log {
         }
     }
 
+    public static void debug(Object o){
+        if(currentLogLevel.priority >= LogLevel.DEBUG.priority){
+            LogObject l  = createLogObject(LogLevel.DEBUG, o);
+            printIt(l);
+        }
+    }
+
     public static void d(String tag, String message){
         debug(tag, message);
     }
@@ -267,6 +285,10 @@ public class Log {
 
     public static void d(Throwable t){
         debug(t);
+    }
+
+    public static void d(Object o){
+        debug(o);
     }
 
     public static void info(String tag, String message){
@@ -304,6 +326,13 @@ public class Log {
         }
     }
 
+    public static void info(Object o){
+        if(currentLogLevel.priority >= LogLevel.INFO.priority){
+            LogObject l  = createLogObject(LogLevel.INFO, o);
+            printIt(l);
+        }
+    }
+
     public static void i(String tag, String message){
         info(tag, message);
     }
@@ -322,6 +351,10 @@ public class Log {
 
     public static void i(Throwable t){
         info(t);
+    }
+
+    public static void i(Object o){
+        info(o);
     }
 
     public static void warn(String tag, String message){
@@ -359,6 +392,13 @@ public class Log {
         }
     }
 
+    public static void warn(Object o){
+        if(currentLogLevel.priority >= LogLevel.WARN.priority){
+            LogObject l  = createLogObject(LogLevel.WARN, o);
+            printIt(l);
+        }
+    }
+
     public static void w(String tag, String message){
         warn(tag, message);
     }
@@ -377,6 +417,10 @@ public class Log {
 
     public static void w(Throwable t){
         warn(t);
+    }
+
+    public static void w(Object o){
+        warn(o);
     }
 
     public static void error(String tag, String message){
@@ -414,6 +458,13 @@ public class Log {
         }
     }
 
+    public static void error(Object o){
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority){
+            LogObject l  = createLogObject(LogLevel.ERROR, o);
+            printIt(l);
+        }
+    }
+
     public static void err(String tag, String message){
         error(tag, message);
     }
@@ -434,6 +485,10 @@ public class Log {
         error(t);
     }
 
+    public static void err(Object o){
+        error(o);
+    }
+
     public static void e(String tag, String message){
         error(tag, message);
     }
@@ -452,6 +507,10 @@ public class Log {
 
     public static void e(Throwable t){
         error(t);
+    }
+
+    public static void e(Object o){
+        error(o);
     }
 
     public static void wtf(String tag, String message){
@@ -489,6 +548,13 @@ public class Log {
         if(currentLogLevel.priority >= LogLevel.ERROR.priority) {
             LogObject l = createLogObject(LogLevel.ERROR, t);
             l.letter = "WTF";
+            printIt(l);
+        }
+    }
+
+    public static void wtf(Object o){
+        if(currentLogLevel.priority >= LogLevel.ERROR.priority){
+            LogObject l  = createLogObject(LogLevel.ERROR, o);
             printIt(l);
         }
     }
@@ -672,6 +738,18 @@ public class Log {
         return l;
     }
 
+    /**
+     * Standard actions for object
+     * @param lvl log level
+     * @param o any object
+     * @return LogObject for internal use
+     */
+    private static LogObject createLogObject(LogLevel lvl, Object o){
+        if(o==null){ return null; }
+        LogObject l = createLogObject(lvl);
+        l.message = o.toString();
+        return l;
+    }
     /**
      * Creates new instance of Log Object with given LogLevel
      *

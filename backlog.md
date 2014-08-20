@@ -7,9 +7,9 @@
 - [ ] Dumper setting ```boolean stringAsObject = false``` , if true will dump String as regular object, otherwise will print string with value
 
 ### Version 1.6-SNAPSHOT
-- [ ] Support for all log levels in Log object to accept ```java.lang.Object``` as param
-- [ ] Override toString() at Log
-- [ ] Add more examples at Demo Test
+- [x] Support for all log levels in Log object to accept ```java.lang.Object``` as param
+- [-] Override toString() at Log
+- [x] Add more examples at Demo Test
 - [ ] Documentation (Javadocs for public API)
 
 ### Version 1.5-SNAPSHOT
