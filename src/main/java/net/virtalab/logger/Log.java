@@ -159,7 +159,7 @@ public class Log {
      *
      * @since 1.7
      */
-    public void addStreamForLevel(LogLevel level, PrintStream stream){
+    public static void addStreamForLevel(LogLevel level, PrintStream stream){
         if(level==null || stream==null){ return; }
         List<PrintStream> streamList = streamMatrix.get(level);
         if(streamList==null){ streamList = new ArrayList<PrintStream>(); }
@@ -176,7 +176,7 @@ public class Log {
      *
      * @since 1.7
      */
-    public void removeStreamForLevel(LogLevel level, PrintStream streamToDelete){
+    public static void removeStreamForLevel(LogLevel level, PrintStream streamToDelete){
         if(level==null || streamToDelete==null){ return; }
         List<PrintStream> streamList = streamMatrix.get(level);
         if(streamList==null || streamList.isEmpty()){ return; }
@@ -192,7 +192,7 @@ public class Log {
      *
      * @since 1.7
      */
-    public void setStream(PrintStream stream){
+    public static void setStream(PrintStream stream){
         if(stream==null){ return; }
         for(LogLevel lvl: streamMatrix.keySet()){
             List<PrintStream> streamList = streamMatrix.get(lvl);
@@ -210,7 +210,7 @@ public class Log {
      *
      * @since 1.7
      */
-    public void removeStream(PrintStream stream){
+    public static void removeStream(PrintStream stream){
         if(stream==null){ return; }
         for(LogLevel level: streamMatrix.keySet()){
             List<PrintStream> streamList = streamMatrix.get(level);
