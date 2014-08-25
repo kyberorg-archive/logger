@@ -1,6 +1,8 @@
 #Logger Backlog
-
 ### Version 1.7-SNAPSHOT
+- [ ] support for multiple streams
+
+### Unscheduled (branch var_dump)
 - [ ] PHP's var_dump() functionality
 - [ ] Dumper object for dumping objects
 - [ ] Dumper setting ```boolean autoboxingTypesAsObjects = true ``` , if true will print ```java.lang.Boolean``` and others as regular objects, otherwise will print boxed primitive
