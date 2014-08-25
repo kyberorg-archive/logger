@@ -132,6 +132,62 @@ public class Log {
         if(level==null || stream==null){ return; }
         streamMatrix.put(level, stream);
     }
+
+    /**
+     * Clears all streams set by default. It might be useful when you unhappy with logging to StdOut and StdErr.
+     *
+     * @since 1.7
+     */
+    public static void deleteDefaultStreams(){
+
+    }
+
+    /**
+     * Adds one more stream for given log level
+     *
+     * @param level log level
+     * @param stream valid Print Stream
+     *
+     * @since 1.7
+     */
+    public void addStreamForLevel(LogLevel level, PrintStream stream){
+        if(level==null || stream==null){ return; }
+    }
+
+    /**
+     * Deletes previously added stream if found
+     *
+     * @param level log level to search against
+     * @param streamToDelete stream which should be found and removed
+     *
+     * @since 1.7
+     */
+    public void removeStreamForLevel(LogLevel level, PrintStream streamToDelete){
+        if(level==null || streamToDelete==null){ return; }
+    }
+
+    /**
+     * Sets given stream to all log levels
+     *
+     * @param stream stream to add
+     *
+     * @since 1.7
+     */
+    public void setStream(PrintStream stream){
+        if(stream==null){ return; }
+    }
+
+    /**
+     * Removes given stream from all log levels if stream found
+     *
+     * @param stream stream to find and remove
+     *
+     * @since 1.7
+     */
+    public void removeStream(PrintStream stream){
+        if(stream==null){ return; }
+    }
+
     /**
      * Updates (sets) new current log level {@link #currentLogLevel}
      *
