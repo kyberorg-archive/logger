@@ -6,6 +6,8 @@ import net.virtalab.logger.LogLevel;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 
 /**
@@ -34,6 +36,38 @@ public class DemoTest {
         //if you don't happy with default color schema, you can change colors
         Log.changeMessageColor(LogLevel.DEBUG, Color.CYAN);
         Log.changeMessageColor(LogLevel.TRACE, Color.WHITE);
+
+        //let's log it to file too
+        try {
+            Log.i("Full log is located at: "+System.getProperty("java.io.tmpdir")+"/loggerTest-full.log");
+            File fullLog = new File(System.getProperty("java.io.tmpdir")+"/loggerTest-full.log");
+            if(! fullLog.exists()){
+                boolean created = fullLog.createNewFile();
+                if(! created){ throw new IOException("Log file cannot be created"); }
+            }
+            PrintStream fileStream = new PrintStream(fullLog);
+            Log.setStream(fileStream);
+        } catch (IOException e) {
+            //okay, it safe to skip it, but we have to report it
+            Log.e("Full log file NOT created "+e.getMessage());
+        }
+
+        //let's log only info, warn and errors to short log
+        try {
+            Log.i("Short log is located at: "+System.getProperty("java.io.tmpdir")+"/loggerTest-short.log");
+            File shortLog = new File(System.getProperty("java.io.tmpdir")+"/loggerTest-short.log");
+            if(! shortLog.exists()){
+                boolean created = shortLog.createNewFile();
+                if(! created){ throw new IOException("Log file cannot be created"); }
+            }
+            PrintStream shortLogStream = new PrintStream(shortLog);
+            Log.addStreamForLevel(LogLevel.INFO, shortLogStream);
+            Log.addStreamForLevel(LogLevel.WARN, shortLogStream);
+            Log.addStreamForLevel(LogLevel.ERROR, shortLogStream);
+        }catch (IOException e){
+            //safe to skip it
+            Log.e("Short log file NOT created "+e.getMessage());
+        }
 
         //at this step we have full log messages.
         Log.t("This is trace message");
