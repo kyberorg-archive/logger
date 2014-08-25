@@ -5,9 +5,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Brand New Logger inspired by android.util.Log
@@ -61,7 +59,7 @@ public class Log {
     //matrix 1,2,3
     private static Map<LogLevel,String> colorMatrix;
     private static Map<LogLevel, String> letterMatrix;
-    private static Map<LogLevel, PrintStream> streamMatrix;
+    private static Map<LogLevel, List<PrintStream>> streamMatrix;
 
     static {
         populateMatrix();
@@ -127,10 +125,14 @@ public class Log {
      *
      * @param level log level
      * @param stream valid Print Stream
+     *
+     * @deprecated consider use {@link #addStreamForLevel(LogLevel level, PrintStream stream) } instead
      */
     public static void changeStreamForLevel(LogLevel level, PrintStream stream){
         if(level==null || stream==null){ return; }
-        streamMatrix.put(level, stream);
+        List<PrintStream> streams = streamMatrix.get(level);
+        if(streams==null) { return; }
+        streams.add(stream);
     }
 
     /**
@@ -139,7 +141,14 @@ public class Log {
      * @since 1.7
      */
     public static void deleteDefaultStreams(){
-
+        for (LogLevel lvl : streamMatrix.keySet()){
+            List<PrintStream> streams = streamMatrix.get(lvl);
+            if(streams==null){
+                streams = new ArrayList<PrintStream>();
+            } else {
+                streams.clear();
+            }
+        }
     }
 
     /**
@@ -152,6 +161,9 @@ public class Log {
      */
     public void addStreamForLevel(LogLevel level, PrintStream stream){
         if(level==null || stream==null){ return; }
+        List<PrintStream> streamList = streamMatrix.get(level);
+        if(streamList==null){ streamList = new ArrayList<PrintStream>(); }
+        streamList.add(stream);
     }
 
     /**
@@ -164,6 +176,11 @@ public class Log {
      */
     public void removeStreamForLevel(LogLevel level, PrintStream streamToDelete){
         if(level==null || streamToDelete==null){ return; }
+        List<PrintStream> streamList = streamMatrix.get(level);
+        if(streamList==null || streamList.isEmpty()){ return; }
+        if(streamList.contains(streamToDelete)){
+            streamList.remove(streamToDelete);
+        }
     }
 
     /**
@@ -175,6 +192,11 @@ public class Log {
      */
     public void setStream(PrintStream stream){
         if(stream==null){ return; }
+        for(LogLevel lvl: streamMatrix.keySet()){
+            List<PrintStream> streamList = streamMatrix.get(lvl);
+            if(streamList==null){ continue; }
+            streamList.add(stream);
+        }
     }
 
     /**
@@ -186,6 +208,15 @@ public class Log {
      */
     public void removeStream(PrintStream stream){
         if(stream==null){ return; }
+        for(LogLevel level: streamMatrix.keySet()){
+            List<PrintStream> streamList = streamMatrix.get(level);
+            if(streamList==null || streamList.isEmpty()){ return; }
+            if(streamList.contains(stream)){
+                streamList.remove(stream);
+            }
+        }
+
+
     }
 
     /**
@@ -1071,8 +1102,10 @@ public class Log {
     private static void publish(LogLevel level, String message){
         if(level==null || message==null){return; }
         if(streamMatrix.containsKey(level)){
-            PrintStream stream = streamMatrix.get(level);
-            stream.println(message);
+            List<PrintStream> listOfStreams = streamMatrix.get(level);
+            for(PrintStream stream : listOfStreams ){
+                stream.println(message);
+            }
         }
     }
 
@@ -1293,12 +1326,23 @@ public class Log {
         letterMatrix.put(LogLevel.DEBUG, "D");
         letterMatrix.put(LogLevel.TRACE, "T");
 
-        streamMatrix = new HashMap<LogLevel, PrintStream>();
-        streamMatrix.put(LogLevel.ERROR, System.err);
-        streamMatrix.put(LogLevel.WARN, System.err);
-        streamMatrix.put(LogLevel.INFO, System.out);
-        streamMatrix.put(LogLevel.DEBUG, System.out);
-        streamMatrix.put(LogLevel.TRACE, System.out);
+        streamMatrix = new HashMap<LogLevel, List<PrintStream>>();
+        ArrayList<PrintStream> errStreams = new ArrayList<PrintStream>();
+        ArrayList<PrintStream> warnStreams = new ArrayList<PrintStream>();
+        ArrayList<PrintStream> infoStreams = new ArrayList<PrintStream>();
+        ArrayList<PrintStream> debugStreams = new ArrayList<PrintStream>();
+        ArrayList<PrintStream> traceStreams = new ArrayList<PrintStream>();
+
+        streamMatrix.put(LogLevel.ERROR, errStreams);
+        errStreams.add(System.err);
+        streamMatrix.put(LogLevel.WARN, warnStreams);
+        warnStreams.add(System.err);
+        streamMatrix.put(LogLevel.INFO, infoStreams);
+        infoStreams.add(System.out);
+        streamMatrix.put(LogLevel.DEBUG, debugStreams);
+        debugStreams.add(System.out);
+        streamMatrix.put(LogLevel.TRACE, traceStreams);
+        traceStreams.add(System.out);
     }
 
     /**
