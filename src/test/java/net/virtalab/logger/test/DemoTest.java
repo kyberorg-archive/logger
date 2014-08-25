@@ -37,7 +37,7 @@ public class DemoTest {
         Log.changeMessageColor(LogLevel.DEBUG, Color.CYAN);
         Log.changeMessageColor(LogLevel.TRACE, Color.WHITE);
 
-        //let's log it to file too
+        //let's log it to file too (@since 1.7)
         try {
             Log.i("Full log is located at: "+System.getProperty("java.io.tmpdir")+"/loggerTest-full.log");
             File fullLog = new File(System.getProperty("java.io.tmpdir")+"/loggerTest-full.log");
@@ -52,7 +52,8 @@ public class DemoTest {
             Log.e("Full log file NOT created "+e.getMessage());
         }
 
-        //let's log only info, warn and errors to short log
+        //let's log only info, warn and errors to short log (@since 1.7)
+        PrintStream shortLogStream = null;
         try {
             Log.i("Short log is located at: "+System.getProperty("java.io.tmpdir")+"/loggerTest-short.log");
             File shortLog = new File(System.getProperty("java.io.tmpdir")+"/loggerTest-short.log");
@@ -60,7 +61,8 @@ public class DemoTest {
                 boolean created = shortLog.createNewFile();
                 if(! created){ throw new IOException("Log file cannot be created"); }
             }
-            PrintStream shortLogStream = new PrintStream(shortLog);
+
+            shortLogStream = new PrintStream(shortLog);
             Log.addStreamForLevel(LogLevel.INFO, shortLogStream);
             Log.addStreamForLevel(LogLevel.WARN, shortLogStream);
             Log.addStreamForLevel(LogLevel.ERROR, shortLogStream);
@@ -72,6 +74,11 @@ public class DemoTest {
         //at this step we have full log messages.
         Log.t("This is trace message");
         Log.d(TAG, "This is debug message with Tag (Prefix)");
+
+        //assume we don't want to see info messages in our short log (only warnings and errors)
+        if(shortLogStream!=null){
+            Log.removeStreamForLevel(LogLevel.INFO,shortLogStream);
+        }
 
         //Changing timestamp format, if you don't happy with default one
         String newTSFormat = "dd.MM.yy hh:mm";
