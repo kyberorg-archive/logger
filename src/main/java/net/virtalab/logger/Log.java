@@ -163,7 +163,9 @@ public class Log {
         if(level==null || stream==null){ return; }
         List<PrintStream> streamList = streamMatrix.get(level);
         if(streamList==null){ streamList = new ArrayList<PrintStream>(); }
-        streamList.add(stream);
+        if(! streamList.contains(stream)){
+            streamList.add(stream);
+        }
     }
 
     /**
@@ -195,7 +197,9 @@ public class Log {
         for(LogLevel lvl: streamMatrix.keySet()){
             List<PrintStream> streamList = streamMatrix.get(lvl);
             if(streamList==null){ continue; }
-            streamList.add(stream);
+            if(! streamList.contains(stream)){
+                streamList.add(stream);
+            }
         }
     }
 
@@ -215,8 +219,6 @@ public class Log {
                 streamList.remove(stream);
             }
         }
-
-
     }
 
     /**
